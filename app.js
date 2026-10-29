@@ -54,9 +54,67 @@ function showPicks() {
         '<h3><a href="' + safeLink(a.link) + '" target="_blank" rel="noopener">' + esc(a.title) + '</a></h3>' +
         (a.summary ? '<p class="summary">' + esc(a.summary) + '</p>' : '') +
         (a.reason ? '<p class="reason"><strong>Why this pick:</strong> ' + esc(a.reason) + '</p>' : '') +
+        '<div class="actions">' +
+          '<button data-act="save" data-i="' + i + '">Save to Library</button>' +
+          '<button data-act="like" data-i="' + i + '">Like</button>' +
+          '<button data-act="dislike" data-i="' + i + '">Dislike</button>' +
+        '</div>' +
       '</article>';
   });
   box.innerHTML = html;
+
+  // The page can't change its own data, so each button copies a command
+  // to paste into Claude Code.
+  box.addEventListener("click", function (e) {
+    var btn = e.target.closest("button[data-act]");
+    if (!btn) return;
+    var a = list[Number(btn.dataset.i)];
+    var command;
+    if (btn.dataset.act === "save") {
+      var note = window.prompt("Add a note for your Library (optional):", "");
+      if (note === null) return; // pressed Cancel
+      command = "save this: " + a.link + ", note: " + note;
+    } else {
+      command = "I " + btn.dataset.act + "d " + a.title + " (" + a.link + ")";
+    }
+    copyText(command);
+  });
+}
+
+// ---------- Copying commands for Claude Code ----------
+function copyText(text) {
+  var done = function () { showToast("Copied! Now paste it into Claude Code."); };
+  if (navigator.clipboard && window.isSecureContext) {
+    navigator.clipboard.writeText(text).then(done, function () { oldCopy(text, done); });
+  } else {
+    oldCopy(text, done);
+  }
+}
+
+// Backup way to copy (needed when the page is opened by double-clicking).
+function oldCopy(text, done) {
+  var box = document.createElement("textarea");
+  box.value = text;
+  document.body.appendChild(box);
+  box.select();
+  var ok = false;
+  try { ok = document.execCommand("copy"); } catch (e) {}
+  box.remove();
+  if (ok) done();
+  else window.prompt("Copy this, then paste it into Claude Code:", text);
+}
+
+function showToast(message) {
+  var toast = document.querySelector(".toast");
+  if (!toast) {
+    toast = document.createElement("div");
+    toast.className = "toast";
+    document.body.appendChild(toast);
+  }
+  toast.textContent = message;
+  toast.classList.add("show");
+  clearTimeout(showToast.timer);
+  showToast.timer = setTimeout(function () { toast.classList.remove("show"); }, 2500);
 }
 
 // ---------- Library ----------

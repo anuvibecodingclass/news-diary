@@ -42,7 +42,8 @@ small steps they can check.
 5. Write `data/picks.js` (today's date, each with a one-sentence `reason`), and add the 10 links to `data/seen.js`.
 6. Publish (see below), then tell the user in 2-3 plain sentences what's in today's picks.
 
-### "save this: [link], note: [note]"
+### "save this: [link], note: [note]"  (also "save pick 3, note: ...")
+The site's Save button copies this command for the user to paste. "save pick N" means the Nth article in `data/picks.js`.
 1. Fetch the link to get the title, source, and a short summary (from the page's description/RSS-style metadata only,
    never the article body). If it's already in today's picks, reuse that info.
 2. Add it to the TOP of `data/library.js` with today's date as `saved`, the note (or `""`), and a short `topic`.
@@ -58,6 +59,7 @@ small steps they can check.
 4. Publish.
 
 ### "I liked [article]" / "I disliked [article]"
+The site's Like/Dislike buttons copy "I liked/disliked [title] ([link])"; "I liked pick 3" also works.
 1. Find the article in picks or the library (match by title words or link).
 2. Add a line under Liked or Disliked in `feedback.md`: `- YYYY-MM-DD: Title (Source), topic`, plus a few words on why if the user gave a reason.
 3. Confirm briefly. (No publish needed, since feedback isn't shown on the site, but it's fine if it goes out with the next publish.)
