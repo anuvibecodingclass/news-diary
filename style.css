@@ -1,0 +1,232 @@
+/* ---------- Colors (light mode) ---------- */
+:root {
+  --bg: #faf8f4;
+  --card: #ffffff;
+  --text: #1f1d1a;
+  --muted: #6b665e;
+  --line: #e6e1d8;
+  --accent: #b4462b;
+  --accent-soft: #f6e6df;
+  --note: #fdf6e3;
+}
+
+/* ---------- Colors (dark mode, follows the phone/computer setting) ---------- */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #161514;
+    --card: #201f1d;
+    --text: #ece8e1;
+    --muted: #a39d93;
+    --line: #34312d;
+    --accent: #e8805f;
+    --accent-soft: #3a2620;
+    --note: #2b2719;
+  }
+}
+
+/* ---------- Page basics ---------- */
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  font-size: 17px;
+  line-height: 1.55;
+}
+
+a { color: inherit; }
+
+.site-header, main, .site-footer {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 0 16px;
+}
+
+/* ---------- Header and tabs ---------- */
+.site-header { padding-top: 28px; }
+
+.site-header h1 {
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 2.1rem;
+  margin: 0;
+}
+
+.tagline { margin: 4px 0 18px; color: var(--muted); }
+
+.tabs {
+  display: flex;
+  gap: 6px;
+  border-bottom: 1px solid var(--line);
+  position: sticky;
+  top: 0;
+  background: var(--bg);
+  z-index: 1;
+}
+
+.tabs button {
+  flex: 1;
+  padding: 12px 8px;
+  border: none;
+  border-bottom: 3px solid transparent;
+  background: none;
+  color: var(--muted);
+  font: inherit;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.tabs button[aria-selected="true"] {
+  color: var(--accent);
+  border-bottom-color: var(--accent);
+}
+
+/* ---------- Sections ---------- */
+.panel { padding: 20px 0 8px; }
+.panel[hidden] { display: none; }
+
+.panel-intro { color: var(--muted); margin: 0 0 16px; }
+
+.empty {
+  padding: 32px 20px;
+  text-align: center;
+  color: var(--muted);
+  border: 1px dashed var(--line);
+  border-radius: 12px;
+}
+
+.empty code {
+  background: var(--accent-soft);
+  color: var(--text);
+  padding: 2px 6px;
+  border-radius: 4px;
+}
+
+/* ---------- Article cards ---------- */
+.card {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 16px 18px;
+  margin-bottom: 14px;
+}
+
+.card-top {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.82rem;
+  color: var(--muted);
+}
+
+.rank {
+  font-family: Georgia, serif;
+  font-weight: 700;
+  color: var(--accent);
+  font-size: 1rem;
+}
+
+.badge {
+  background: var(--accent-soft);
+  color: var(--accent);
+  border-radius: 999px;
+  padding: 1px 9px;
+  font-weight: 600;
+  text-transform: capitalize;
+}
+
+.card h3 {
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 1.2rem;
+  line-height: 1.3;
+  margin: 8px 0 6px;
+}
+
+.card h3 a { text-decoration: none; }
+.card h3 a:hover { text-decoration: underline; }
+
+.summary { margin: 0 0 10px; }
+
+.reason {
+  margin: 0;
+  font-size: 0.92rem;
+  color: var(--muted);
+}
+
+.reason strong { color: var(--text); }
+
+.note {
+  margin: 10px 0 0;
+  padding: 10px 12px;
+  background: var(--note);
+  border-left: 3px solid var(--accent);
+  border-radius: 4px;
+  font-size: 0.95rem;
+}
+
+/* ---------- Library search ---------- */
+.search {
+  width: 100%;
+  padding: 10px 14px;
+  margin-bottom: 16px;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: var(--card);
+  color: var(--text);
+  font: inherit;
+}
+
+/* ---------- Diary ---------- */
+.entry {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 18px 20px;
+  margin-bottom: 22px;
+}
+
+.entry h2 {
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 1.4rem;
+  margin: 0 0 6px;
+}
+
+.entry-intro { color: var(--muted); margin: 0 0 8px; }
+
+.topic {
+  border-top: 1px solid var(--line);
+  padding-top: 14px;
+  margin-top: 14px;
+}
+
+.topic h3 { margin: 0 0 8px; font-size: 1.08rem; }
+
+.topic dl { margin: 0; }
+
+.topic dt {
+  font-size: 0.78rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--accent);
+  margin-top: 10px;
+}
+
+.topic dd { margin: 2px 0 0; }
+
+.topic ul {
+  margin: 10px 0 0;
+  padding-left: 20px;
+  font-size: 0.9rem;
+  color: var(--muted);
+}
+
+/* ---------- Footer ---------- */
+.site-footer {
+  padding-top: 12px;
+  padding-bottom: 40px;
+  font-size: 0.82rem;
+  color: var(--muted);
+}
